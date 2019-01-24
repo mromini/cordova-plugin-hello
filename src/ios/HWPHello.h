@@ -1,4 +1,6 @@
 #import <Cordova/CDV.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonCryptor.h>
 
 @interface HWPHello : CDVPlugin
 
