@@ -82,7 +82,7 @@ public class MCrypt {
 // Cipher.DECRYPT_MODE = Constant for decryption operation mode.
             cipher.init(Cipher.DECRYPT_MODE, keyspec, ivspec);
 
-            decrypted = cipher.doFinal(hexToBytes(text));
+            decrypted = cipher.doFinal(padString(text).getBytes());
         } catch (Exception e) {
             throw new Exception("[decrypt] " + e.getMessage());
         }
