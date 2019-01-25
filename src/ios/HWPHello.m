@@ -34,6 +34,21 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)decrypt:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSString* encryptedString = [command.arguments objectAtIndex:0];
+
+    NSString *hexKey = @"565757646A5848435638423347574455417A3779764B35504351477652784D54";
+    NSString *hexIV = @"6A3363356B4256615845523371367A58";
+
+    NSString *plainString = [self decodeAndPrintCipherBase64Data:encryptedString usingHexKey:hexKey hexIV:hexIV];
+
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:plainString];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (NSData *)decodeAndPrintCipherBase64Data:(NSString *)cipherText
                                usingHexKey:(NSString *)hexKey
                                      hexIV:(NSString *)hexIV

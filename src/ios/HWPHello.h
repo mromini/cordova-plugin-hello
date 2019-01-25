@@ -6,6 +6,7 @@
 
 - (void) greet:(CDVInvokedUrlCommand*)command;
 - (void) encrypt:(CDVInvokedUrlCommand*)command;
+- (void) decrypt:(CDVInvokedUrlCommand*)command;
 @end
 
 @interface NSData (AES256Encryption)

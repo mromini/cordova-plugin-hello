@@ -6,5 +6,8 @@ module.exports = {
     },
     encrypt: function (email, password, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Hello", "encrypt", [email,password]);
+    },
+    decrypt: function (encryptedString, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Hello", "decrypt", [encryptedString]);
     }
 };
