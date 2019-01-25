@@ -56,7 +56,7 @@ public class Hello extends CordovaPlugin {
 
 
     // Encrypting our dummy String
-    String encryptedStr="";
+    String encryptedStr="KO";
     try {
       encryptedStr = MCrypt.byteArrayToB64String(mcrypt.encrypt(json));
     } catch (Exception e) {
@@ -91,8 +91,27 @@ public class Hello extends CordovaPlugin {
 
             }
 
+            if (result.equals("KO")
+                callbackContext.error("Unable to encrypt.");
+            else
+                callbackContext.success(result);
 
-            callbackContext.success(result);
+            return true;
+
+        } else if (action.equals("decrypt")) {
+            String encryptedString = data.getString(0);
+            String result = "KO";
+            MCrypt mcrypt = new MCrypt();
+            try {
+                result = MCrypt.byteArrayToB64String(mcrypt.decrypt(encryptedString));
+            } catch (Exception e) {
+                //Glb.DLog("Encryption error: " + e.getMessage());
+            }
+
+            if (result.equals("KO")
+                callbackContext.error("Unable to decrypt.");
+            else
+                callbackContext.success(result);
 
             return true;
 
