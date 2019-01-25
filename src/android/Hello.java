@@ -74,8 +74,8 @@ public class Hello extends CordovaPlugin {
             String email = data.getString(0);
             String password = data.getString(1);
             HashMap<String, String> params=new HashMap<String, String>();
-            meMap.put("EMAIL",email);
-            meMap.put("PWD",password);
+            params.put("EMAIL",email);
+            params.put("PWD",password);
 
             String result = TSID_API_REQ(params);
 
