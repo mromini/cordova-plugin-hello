@@ -91,7 +91,7 @@ public class Hello extends CordovaPlugin {
 
             }
 
-            if (result.equals("KO")
+            if (result.equals("KO"))
                 callbackContext.error("Unable to encrypt.");
             else
                 callbackContext.success(result);
@@ -108,7 +108,7 @@ public class Hello extends CordovaPlugin {
                 //Glb.DLog("Encryption error: " + e.getMessage());
             }
 
-            if (result.equals("KO")
+            if (result.equals("KO"))
                 callbackContext.error("Unable to decrypt.");
             else
                 callbackContext.success(result);
