@@ -2,6 +2,8 @@
 #import <Cordova/CDV.h>
 
 @implementation HWPHello
+NSString* const hexKey = @"565757646A5848435638423347574455417A3779764B35504351477652784D54";
+NSString* const hexIV = @"6A3363356B4256615845523371367A58";
 
 - (void)greet:(CDVInvokedUrlCommand*)command
 {
@@ -29,7 +31,10 @@
     NSData* result = [self TSID_API_REQ:par];
     NSString *receivedDataString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
     
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:receivedDataString];
+    if ([receivedDataString isEqualToString:@"KO"])
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unable to encrypt."];
+    else
+      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:receivedDataString];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -39,12 +44,13 @@
     CDVPluginResult* pluginResult = nil;
     NSString* encryptedString = [command.arguments objectAtIndex:0];
 
-    NSString *hexKey = @"565757646A5848435638423347574455417A3779764B35504351477652784D54";
-    NSString *hexIV = @"6A3363356B4256615845523371367A58";
-
-    NSString *plainString = [self decodeAndPrintCipherBase64Data:encryptedString usingHexKey:hexKey hexIV:hexIV];
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:plainString];
+    NSData *result = [self decodeAndPrintCipherBase64Data:encryptedString usingHexKey:hexKey hexIV:hexIV];
+    NSString *plainString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    
+    if ([plainString isEqualToString:@"KO"])
+      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unable to decrypt"];
+    else
+      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:plainString];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -63,6 +69,8 @@
         NSString *plainText = [[NSString alloc] initWithData:decryptedPayload encoding:NSUTF8StringEncoding];
         //NSLog(@"Decrypted Result: %@", plainText);
     }
+    else
+        decryptedPayload = [[NSString stringWithFormat:@"KO"] dataUsingEncoding:NSUTF8StringEncoding];
     
     return decryptedPayload;
 }
@@ -122,8 +130,6 @@
         // If no errors, let's view the JSON
         if (json != nil && error == nil) {
             toCrypt = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-            NSString *hexKey = @"565757646A5848435638423347574455417A3779764B35504351477652784D54";
-            NSString *hexIV = @"6A3363356B4256615845523371367A58";
             //
             NSString *cipherText = [self encodeAndPrintPlainText:toCrypt usingHexKey:hexKey hexIV:hexIV];
             //
