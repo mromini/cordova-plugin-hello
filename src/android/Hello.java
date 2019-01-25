@@ -102,14 +102,16 @@ public class Hello extends CordovaPlugin {
             String encryptedString = data.getString(0);
             String result = "KO";
             MCrypt mcrypt = new MCrypt();
+            String err ="";
             try {
                 result = MCrypt.byteArrayToB64String(mcrypt.decrypt(encryptedString));
             } catch (Exception e) {
+                err = e.getMessage();
                 //Glb.DLog("Encryption error: " + e.getMessage());
             }
 
             if (result.equals("KO"))
-                callbackContext.error("Unable to decrypt.");
+                callbackContext.error("Unable to decrypt.\n"+err);
             else
                 callbackContext.success(result);
 
