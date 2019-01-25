@@ -3,6 +3,9 @@ package com.example.plugin;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import org.json.JSONObject;
 
 public class Hello extends CordovaPlugin {
 
