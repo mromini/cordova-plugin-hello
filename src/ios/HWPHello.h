@@ -5,7 +5,7 @@
 @interface HWPHello : CDVPlugin
 
 - (void) greet:(CDVInvokedUrlCommand*)command;
-
+- (void) encrypt:(CDVInvokedUrlCommand*)command;
 @end
 
 @interface NSData (AES256Encryption)
