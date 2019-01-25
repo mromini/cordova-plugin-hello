@@ -1,12 +1,10 @@
 package com.example.plugin;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.*;
 
 public class MCrypt {
     private String iv = "j3c5kBVaXER3q6zX";

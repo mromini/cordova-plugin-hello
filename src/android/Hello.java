@@ -3,9 +3,13 @@ package com.example.plugin;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import org.json.JSONObject;
+import java.util.HashMap;
+
 
 public class Hello extends CordovaPlugin {
 
@@ -56,7 +60,7 @@ public class Hello extends CordovaPlugin {
     try {
       encryptedStr = MCrypt.byteArrayToB64String(mcrypt.encrypt(json));
     } catch (Exception e) {
-      Glb.DLog("Encryption error: " + e.getMessage());
+      //Glb.DLog("Encryption error: " + e.getMessage());
     }
 
     return risultato = encryptedStr;
@@ -80,7 +84,13 @@ public class Hello extends CordovaPlugin {
             params.put("EMAIL",email);
             params.put("PWD",password);
 
-            String result = TSID_API_REQ(params);
+            String result = "KO";
+            try {
+              result = TSID_API_REQ(params);
+            } catch (IOException err) {
+
+            }
+
 
             callbackContext.success(result);
 
