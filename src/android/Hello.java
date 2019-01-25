@@ -99,7 +99,7 @@ public class Hello extends CordovaPlugin {
             return true;
 
         } else if (action.equals("decrypt")) {
-            String encryptedString = data.toString();
+            String encryptedString = data.getString(0);
             callbackContext.success(encryptedString);
             //String result = "KO";
             //MCrypt mcrypt = new MCrypt();
