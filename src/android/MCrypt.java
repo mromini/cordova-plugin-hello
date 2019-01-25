@@ -82,7 +82,7 @@ public class MCrypt {
 // Cipher.DECRYPT_MODE = Constant for decryption operation mode.
             cipher.init(Cipher.DECRYPT_MODE, keyspec, ivspec);
 
-            decrypted = cipher.doFinal(padString(text).getBytes());
+            decrypted = cipher.doFinal(b64StringToByteArray(text));
         } catch (Exception e) {
             throw new Exception("[decrypt] " + e.getMessage());
         }
@@ -102,5 +102,9 @@ public class MCrypt {
     public static String byteArrayToB64String(byte[] array) {
         byte[] encoded = Base64.encode(array);
         return (new String(encoded));
+    }
+    public static byte[] b64StringToByteArray(String text) {
+        byte[] encoded = Base64.decode(text.getBytes());
+        return encoded;
     }
 }

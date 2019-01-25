@@ -99,11 +99,12 @@ public class Hello extends CordovaPlugin {
             return true;
 
         } else if (action.equals("decrypt")) {
+            String encryptedString = data.getString(0);
             String result = "KO";
             MCrypt mcrypt = new MCrypt();
             String err ="";
             try {
-                result = MCrypt.byteArrayToB64String(mcrypt.decrypt(encryptedString));
+                result = new String(mcrypt.decrypt(encryptedString), "UTF-8"); // for UTF-8 encoding 
             } catch (Exception e) {
                 err = e.getMessage();
                 //Glb.DLog("Encryption error: " + e.getMessage());
