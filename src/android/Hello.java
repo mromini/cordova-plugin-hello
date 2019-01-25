@@ -99,21 +99,22 @@ public class Hello extends CordovaPlugin {
             return true;
 
         } else if (action.equals("decrypt")) {
-            String encryptedString = data.getString(0);
-            String result = "KO";
-            MCrypt mcrypt = new MCrypt();
-            String err ="";
-            try {
-                result = MCrypt.byteArrayToB64String(mcrypt.decrypt(encryptedString));
-            } catch (Exception e) {
-                err = e.getMessage();
+            String encryptedString = data.toString();
+            callbackContext.success(encryptedString);
+            //String result = "KO";
+            //MCrypt mcrypt = new MCrypt();
+            //String err ="";
+            //try {
+            //    result = MCrypt.byteArrayToB64String(mcrypt.decrypt(encryptedString));
+            //} catch (Exception e) {
+            //    err = e.getMessage();
                 //Glb.DLog("Encryption error: " + e.getMessage());
-            }
+            //}
 
-            if (result.equals("KO"))
-                callbackContext.error("Unable to decrypt.\n"+err);
-            else
-                callbackContext.success(result);
+            //if (result.equals("KO"))
+            //    callbackContext.error("Unable to decrypt.\n"+err);
+            //else
+            //    callbackContext.success(result);
 
             return true;
 
